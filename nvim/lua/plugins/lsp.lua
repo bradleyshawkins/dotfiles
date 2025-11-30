@@ -36,6 +36,19 @@ return {
 				-- },
 			})
 
+			-- Python: Pyright
+			vim.lsp.config("pyright", {
+				capabilities = capabilities,
+				settings = {
+					python = {
+						analysis = {
+							typeCheckingMode = "basic", -- "off" | "basic" | "strict"
+							autoImportCompletions = true,
+						},
+					},
+				},
+			})
+
 			-- Set up keymaps when an LSP attaches to a buffer
 			local augroup = vim.api.nvim_create_augroup("UserLspConfig", {})
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -78,8 +91,8 @@ return {
 			ensure_installed = {
 				"lua_ls",
 				"gopls",
+				"pyright",
 				-- "ts_ls",
-				-- "pyright",
 				-- "rust_analyzer",
 			},
 			-- By default, this will call vim.lsp.enable() for installed servers
