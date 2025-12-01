@@ -27,35 +27,23 @@ return {
 	---------------------------------------------------------------------------
 	-- 2. gitsigns: signs + hunk actions in the gutter
 	---------------------------------------------------------------------------
+
 	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPost", "BufNewFile" },
 		opts = {
-			-- you can tweak signs here later
+			-- signs/options if you want them later
+		},
+		keys = {
+			{ "]h",         "<cmd>Gitsigns next_hunk<CR>",       desc = "Next git hunk" },
+			{ "[h",         "<cmd>Gitsigns prev_hunk<CR>",       desc = "Prev git hunk" },
+			{ "<leader>hs", "<cmd>Gitsigns stage_hunk<CR>",      desc = "Stage hunk",           mode = { "n", "v" } },
+			{ "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>",      desc = "Reset hunk",           mode = { "n", "v" } },
+			{ "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>",    desc = "Preview hunk" },
+			{ "<leader>hb", "<cmd>Gitsigns blame_line full<CR>", desc = "Git blame line (full)" },
 		},
 		config = function(_, opts)
 			require("gitsigns").setup(opts)
-
-			-- Optional: some handy hunk keymaps
-			local map = vim.keymap.set
-			-- navigate hunks
-			map("n", "]h", function() require("gitsigns").next_hunk() end, { desc = "Next git hunk" })
-			map("n", "[h", function() require("gitsigns").prev_hunk() end, { desc = "Prev git hunk" })
-
-			-- stage/reset
-			map("n", "<leader>hs", function() require("gitsigns").stage_hunk() end, { desc = "Stage hunk" })
-			map("n", "<leader>hr", function() require("gitsigns").reset_hunk() end, { desc = "Reset hunk" })
-			map("v", "<leader>hs", function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end,
-				{ desc = "Stage hunk (visual)" })
-			map("v", "<leader>hr", function() require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end,
-				{ desc = "Reset hunk (visual)" })
-
-			-- preview
-			map("n", "<leader>hp", function() require("gitsigns").preview_hunk() end, { desc = "Preview hunk" })
-
-			-- blame
-			map("n", "<leader>hb", function() require("gitsigns").blame_line({ full = true }) end,
-				{ desc = "Git blame line" })
 		end,
 	},
 
